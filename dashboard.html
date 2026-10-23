@@ -1,0 +1,25 @@
+{% extends "base.html" %}{% block title %}Dashboard{% endblock %}{% block body %}
+{% if welcome %}<div class="splash"><div>
+ <svg viewBox="0 0 120 120" aria-hidden="true"><circle class="track" cx="60" cy="60" r="45"/><circle class="ring" cx="60" cy="60" r="45"/><path class="shackle" d="M48 56V48a12 12 0 0 1 24 0v8"/><rect class="lb" x="42" y="56" width="36" height="26" rx="5"/><circle cx="60" cy="68" r="3.5" fill="#fff"/></svg>
+ <p>Securing your session...</p></div></div>{% endif %}
+<nav class="nav"><div class="b"><div class="logo">🔐</div>SecureLogin</div>
+ <form method="post" action="{{ url_for('logout') }}"><input type="hidden" name="_csrf" value="{{ csrf_token() }}"><span class="mut">{{ user.username }}</span><button class="btn">Log out</button></form></nav>
+<div class="wrap">
+ {% include "_flashes.html" %}
+ <div class="hero"><h1>Welcome back, {{ user.username }} 👋</h1><p>You are signed in securely.</p></div>
+ <div class="cards">
+  <div class="card"><h2>👤 Account</h2>
+   <div class="row"><span>Username</span><b>{{ user.username }}</b></div>
+   <div class="row"><span>Email</span><b>{{ user.email }}</b></div>
+   <div class="row"><span>Member since</span><b>{{ user.created_at[:10] }}</b></div></div>
+  <div class="card"><h2>🛡️ Security</h2>
+   <div class="row"><span>Password</span><span class="pill on">Argon2id hashed</span></div>
+   <div class="row"><span>Session</span><span class="pill on">Secure cookie</span></div>
+   <div class="row"><span>Two-factor (2FA)</span>
+    {% if user.totp_enabled %}<span class="pill on">Enabled</span>{% else %}<span class="pill off">Off</span>{% endif %}</div>
+   {% if not user.totp_enabled %}<a class="btn ghost" style="display:block;text-align:center" href="{{ url_for('setup_2fa') }}">Enable 2FA</a>{% endif %}</div>
+  <div class="card"><h2>⏱️ Session</h2>
+   <div class="row"><span>Signed in</span><b>{{ login_at }}</b></div>
+   <div class="row"><span>Auto logout</span><b>after 30 min</b></div></div>
+ </div>
+</div>{% endblock %}

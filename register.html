@@ -1,0 +1,12 @@
+{% extends "auth.html" %}{% block title %}Register{% endblock %}{% block form %}
+<h1>Create account</h1><p class="mut">It only takes a minute</p>
+{% include "_flashes.html" %}
+<form method="post"><input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+ <label for="username">Username</label><input id="username" name="username" required pattern="[A-Za-z0-9_]{3,30}" title="3-30 letters, numbers or underscore" autocomplete="username">
+ <label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email">
+ <label for="password">Password</label><div class="pw"><input id="password" name="password" type="password" required minlength="10" maxlength="128" autocomplete="new-password"><button type="button" data-toggle="password" aria-label="Show password">👁️</button></div>
+ <div class="meter"><i id="meter"></i></div><p class="mut">10+ characters with upper, lower, a number and a symbol.</p>
+ <label for="confirm">Confirm password</label><input id="confirm" name="confirm" type="password" required autocomplete="new-password">
+ <button class="btn">Create account</button></form>
+<p class="foot">Already registered? <a href="{{ url_for('login') }}">Log in</a></p>
+{% endblock %}

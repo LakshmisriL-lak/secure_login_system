@@ -1,0 +1,11 @@
+{% extends "auth.html" %}{% block title %}Set up 2FA{% endblock %}{% block form %}
+<h1>Set up 2FA</h1><p class="mut">Scan with Google Authenticator, Authy or any TOTP app.</p>
+{% include "_flashes.html" %}
+<img class="qr" src="data:image/png;base64,{{ qr }}" alt="2FA QR code">
+<p class="mut" style="text-align:center">Can't scan? Enter this key manually:</p><code>{{ secret }}</code>
+<form method="post"><input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+ <label for="code">Enter the current code to confirm</label>
+ <input id="code" class="otp" name="code" inputmode="numeric" maxlength="7" required>
+ <button class="btn">Enable 2FA</button></form>
+<p class="foot"><a href="{{ url_for('dashboard') }}">Cancel</a></p>
+{% endblock %}

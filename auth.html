@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% block body %}
+<div class="auth">
+ <aside class="brand">
+  <div class="logo">🔐</div><h2>Secure Login System</h2>
+  <p>Your account is protected with modern security, from the moment you sign up.</p>
+  <ul>
+   <li><span>🔑</span>Passwords hashed with Argon2id</li>
+   <li><span>🛡️</span>Protected against SQL injection</li>
+   <li><span>⏱️</span>Safe sessions with instant logout</li>
+   <li><span>📱</span>Optional two-factor authentication</li>
+  </ul>
+ </aside>
+ <main class="panel"><div class="box"><div class="logo">🔐</div>
+  {% block form %}{% endblock %}
+ </div></main>
+</div>{% endblock %}

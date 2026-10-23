@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Secure Login: UI Preview</title>
+<style>
+:root{--bg:#f1f5f9;--card:#fff;--tx:#0f172a;--mut:#64748b;--bd:#e2e8f0;--in:#f8fafc;--ac:#4f46e5;--ac2:#7c3aed;--okb:#dcfce7;--okt:#166534;--erb:#fee2e2;--ert:#991b1b;--sh:0 20px 50px #1e1b4b22}
+@media(prefers-color-scheme:dark){:root{--bg:#0b1020;--card:#151c33;--tx:#e5e7eb;--mut:#94a3b8;--bd:#2d3a55;--in:#0f1629;--ac:#818cf8;--ac2:#a78bfa;--okb:#14532d;--okt:#bbf7d0;--erb:#7f1d1d;--ert:#fecaca;--sh:0 20px 50px #0008}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--ac);text-decoration:none;font-weight:600}a:hover{text-decoration:underline}
+h1{font-size:1.6rem;margin:0 0 .3rem}h2{font-size:1.05rem;margin:0 0 .7rem}.mut{color:var(--mut);font-size:.9rem}
+/* auth layout */
+.auth{min-height:100vh;display:grid;grid-template-columns:1fr}
+.brand{display:none;background:linear-gradient(135deg,#4f46e5,#7c3aed 60%,#0ea5e9);color:#fff;padding:3.5rem;flex-direction:column;justify-content:center}
+.brand h2{font-size:2.1rem;margin:1rem 0 .5rem}.brand p{opacity:.9;line-height:1.6;max-width:420px}
+.brand ul{list-style:none;padding:0;margin:1.5rem 0 0}.brand li{margin:.7rem 0;display:flex;gap:.7rem;align-items:center}
+.brand li span{background:#fff3;border-radius:10px;padding:.35rem .5rem}
+.logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#4f46e5,#7c3aed);display:grid;place-items:center;font-size:26px;box-shadow:0 8px 24px #4f46e555}
+.brand .logo{background:#fff3;box-shadow:none}
+.panel{display:grid;place-items:center;padding:1.5rem}
+.box{width:100%;max-width:410px;background:var(--card);padding:2rem;border-radius:20px;box-shadow:var(--sh);border:1px solid var(--bd)}
+.box .logo{margin:0 auto 1rem}.box h1,.box>.mut{text-align:center}
+@media(min-width:900px){.auth{grid-template-columns:1.1fr 1fr}.brand{display:flex}.box .logo{display:none}.box h1,.box>.mut{text-align:left}}
+/* forms */
+label{display:block;font-size:.82rem;font-weight:600;color:var(--mut);margin:1rem 0 .3rem}
+input{width:100%;padding:.75rem .85rem;border:1.5px solid var(--bd);border-radius:12px;background:var(--in);color:var(--tx);font-size:1rem;outline:none;transition:.15s}
+input:focus{border-color:var(--ac);box-shadow:0 0 0 4px #6366f126}
+.pw{position:relative}.pw input{padding-right:3rem}
+.pw button{position:absolute;right:.4rem;top:50%;transform:translateY(-50%);width:auto;margin:0;padding:.3rem .5rem;background:none;color:var(--mut);box-shadow:none;font-size:1.05rem}
+.meter{height:6px;background:var(--bd);border-radius:4px;overflow:hidden;margin-top:.5rem}
+.meter i{display:block;height:100%;width:0;border-radius:4px;transition:.25s}
+.btn{width:100%;margin-top:1.4rem;padding:.8rem;border:0;border-radius:12px;background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;font-size:1rem;font-weight:700;cursor:pointer;box-shadow:0 8px 20px #4f46e540;transition:.15s}
+.btn:hover{transform:translateY(-1px)}.btn:active{transform:scale(.98)}
+.btn.ghost{background:transparent;color:var(--ac);border:1.5px solid var(--ac);box-shadow:none;margin-top:.8rem}
+.alert{padding:.7rem .9rem;border-radius:12px;font-size:.9rem;margin:1rem 0 0}.alert.ok{background:var(--okb);color:var(--okt)}.alert.err{background:var(--erb);color:var(--ert)}
+.foot{text-align:center;margin-top:1.3rem;font-size:.9rem;color:var(--mut)}
+.otp{font-size:1.6rem;letter-spacing:.4em;text-align:center;font-weight:700}
+.qr{display:block;margin:1rem auto;width:200px;border-radius:12px;border:1px solid var(--bd);background:#fff;padding:8px}
+code{display:block;background:var(--in);border:1px dashed var(--bd);padding:.5rem;border-radius:8px;word-break:break-all;text-align:center;font-size:.85rem}
+/* dashboard */
+.nav{display:flex;justify-content:space-between;align-items:center;padding:.8rem 1.5rem;background:var(--card);border-bottom:1px solid var(--bd)}
+.nav .b{display:flex;align-items:center;gap:.6rem;font-weight:800}.nav .logo{width:36px;height:36px;font-size:18px;border-radius:10px}
+.nav form{margin:0;display:flex;align-items:center;gap:.8rem}.nav .btn{width:auto;margin:0;padding:.5rem 1rem;box-shadow:none}
+.wrap{max-width:920px;margin:0 auto;padding:1.5rem}
+.hero{background:linear-gradient(135deg,#4f46e5,#7c3aed 60%,#0ea5e9);color:#fff;border-radius:20px;padding:2rem;box-shadow:var(--sh)}
+.hero h1{font-size:1.8rem}.hero p{margin:.3rem 0 0;opacity:.9}
+.cards{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:1.2rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:1.3rem;box-shadow:var(--sh)}
+.row{display:flex;justify-content:space-between;align-items:center;padding:.6rem 0;border-bottom:1px solid var(--bd);font-size:.9rem;gap:.5rem}.row:last-child{border:0}
+.row span:first-child{color:var(--mut)}
+.pill{padding:.2rem .65rem;border-radius:99px;font-size:.78rem;font-weight:700}.pill.on{background:var(--okb);color:var(--okt)}.pill.off{background:var(--erb);color:var(--ert)}
+/* login splash (CSS only, shown once after login) */
+.splash{position:fixed;inset:0;background:var(--bg);display:grid;place-items:center;text-align:center;z-index:50;animation:out .4s ease 1.7s forwards}
+.splash svg{width:130px;height:130px}.splash p{color:var(--mut)}
+.track{fill:none;stroke:var(--bd);stroke-width:5}
+.ring{fill:none;stroke:var(--ac);stroke-width:5;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;transform:rotate(-90deg);transform-origin:60px 60px;animation:ring 1.7s ease-in-out forwards}
+.shackle{fill:none;stroke:var(--ac);stroke-width:6;stroke-linecap:round;animation:lock 1.7s ease-in-out forwards}.lb{fill:var(--ac)}
+@keyframes ring{to{stroke-dashoffset:0}}@keyframes lock{0%,55%{transform:translateY(-9px)}80%,100%{transform:translateY(0)}}
+@keyframes out{to{opacity:0;visibility:hidden}}
+
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.pv{display:flex;gap:.4rem;justify-content:center;align-items:center;flex-wrap:wrap;padding:.6rem;background:var(--card);border-bottom:1px solid var(--bd);font-size:.82rem;color:var(--mut)}
+.pv button{width:auto;margin:0;padding:.35rem .8rem;border:1px solid var(--bd);border-radius:99px;background:var(--in);color:var(--tx);font-size:.82rem;font-weight:600;cursor:pointer}
+.pv button.on{background:linear-gradient(135deg,var(--ac),var(--ac2));color:#fff;border-color:transparent}
+.auth{min-height:calc(100vh - 52px)}.hide{display:none!important}
+.qrfake{width:184px;height:184px;margin:0 auto;display:grid;grid-template-columns:repeat(11,1fr);gap:2px}
+.qrfake i{background:#111;border-radius:1px}.qrfake i.w{background:#fff}
+</style></head><body>
+
+<div class="pv"><span>Preview screens:</span>
+ <button data-go="login" class="on">Login</button><button data-go="register">Register</button><button data-go="2fa">2FA check</button><button data-go="setup">2FA setup</button><button data-go="dash">Dashboard</button>
+</div>
+
+<div class="auth" id="authwrap">
+ <aside class="brand">
+  <div class="logo">🔐</div><h2>Secure Login System</h2>
+  <p>Your account is protected with modern security, from the moment you sign up.</p>
+  <ul><li><span>🔑</span>Passwords hashed with Argon2id</li><li><span>🛡️</span>Protected against SQL injection</li><li><span>⏱️</span>Safe sessions with instant logout</li><li><span>📱</span>Optional two-factor authentication</li></ul>
+ </aside>
+ <main class="panel"><div class="box"><div class="logo">🔐</div>
+
+  <section id="v-login">
+   <h1>Welcome back</h1><p class="mut">Log in to your account</p>
+   <div id="lmsg"></div>
+   <form id="f-login"><label>Username</label><input id="lu" value="alice_01" required>
+    <label>Password</label><div class="pw"><input id="lp" type="password" value="Secure@1234" required><button type="button" data-toggle="lp">👁️</button></div>
+    <button class="btn">Log in</button></form>
+   <p class="foot">No account? <a href="#" data-go="register">Create one</a></p>
+  </section>
+
+  <section id="v-register" class="hide">
+   <h1>Create account</h1><p class="mut">It only takes a minute</p>
+   <form id="f-reg"><label>Username</label><input value="alice_01"><label>Email</label><input type="email" value="alice@example.com">
+    <label>Password</label><div class="pw"><input id="password" type="password" value="Secure@1234"><button type="button" data-toggle="password">👁️</button></div>
+    <div class="meter"><i id="meter" style="width:100%;background:#22c55e"></i></div><p class="mut">10+ characters with upper, lower, a number and a symbol.</p>
+    <label>Confirm password</label><input type="password" value="Secure@1234">
+    <button class="btn">Create account</button></form>
+   <p class="foot">Already registered? <a href="#" data-go="login">Log in</a></p>
+  </section>
+
+  <section id="v-2fa" class="hide">
+   <h1>Two-factor check</h1><p class="mut">Enter the 6-digit code from your authenticator app.</p>
+   <form id="f-2fa"><label>Authentication code</label><input class="otp" value="482 910" maxlength="7"><button class="btn">Verify</button></form>
+   <p class="foot"><a href="#" data-go="login">Back to login</a></p>
+  </section>
+
+  <section id="v-setup" class="hide">
+   <h1>Set up 2FA</h1><p class="mut">Scan with Google Authenticator, Authy or any TOTP app.</p>
+   <div class="qr" style="width:210px"><div class="qrfake" id="qrf"></div></div>
+   <p class="mut" style="text-align:center">Cannot scan? Enter this key manually:</p><code>JBSWY3DPEHPK3PXPJBSWY3DPEHPK3PXP</code>
+   <form id="f-setup"><label>Enter the current code to confirm</label><input class="otp" value="482910" maxlength="7"><button class="btn">Enable 2FA</button></form>
+   <p class="foot"><a href="#" data-go="dash">Cancel</a></p>
+  </section>
+ </div></main>
+</div>
+
+<div id="v-dash" class="hide">
+ <nav class="nav"><div class="b"><div class="logo">🔐</div>SecureLogin</div>
+  <form id="f-out"><span class="mut">alice_01</span><button class="btn">Log out</button></form></nav>
+ <div class="wrap">
+  <div class="hero"><h1>Welcome back, alice_01 👋</h1><p>You are signed in securely.</p></div>
+  <div class="cards">
+   <div class="card"><h2>👤 Account</h2>
+    <div class="row"><span>Username</span><b>alice_01</b></div><div class="row"><span>Email</span><b>alice@example.com</b></div><div class="row"><span>Member since</span><b id="since"></b></div></div>
+   <div class="card"><h2>🛡️ Security</h2>
+    <div class="row"><span>Password</span><span class="pill on">Argon2id hashed</span></div>
+    <div class="row"><span>Session</span><span class="pill on">Secure cookie</span></div>
+    <div class="row"><span>Two-factor (2FA)</span><span class="pill on" id="p2fa">Enabled</span></div></div>
+   <div class="card"><h2>⏱️ Session</h2>
+    <div class="row"><span>Signed in</span><b id="since2"></b></div><div class="row"><span>Auto logout</span><b>after 30 min</b></div></div>
+  </div>
+ </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const views={login:"#v-login",register:"#v-register","2fa":"#v-2fa",setup:"#v-setup"};
+function go(v){
+  const dash=v==="dash";
+  $("#authwrap").classList.toggle("hide",dash);$("#v-dash").classList.toggle("hide",!dash);
+  Object.entries(views).forEach(([k,s])=>$(s).classList.toggle("hide",k!==v));
+  document.querySelectorAll(".pv button").forEach(b=>b.classList.toggle("on",b.dataset.go===v));
+  window.scrollTo(0,0);
+}
+function splash(then){
+  const d=document.createElement("div");d.className="splash";
+  d.innerHTML='<div><svg viewBox="0 0 120 120"><circle class="track" cx="60" cy="60" r="45"/><circle class="ring" cx="60" cy="60" r="45"/><path class="shackle" d="M48 56V48a12 12 0 0 1 24 0v8"/><rect class="lb" x="42" y="56" width="36" height="26" rx="5"/><circle cx="60" cy="68" r="3.5" fill="#fff"/></svg><p>Securing your session...</p></div>';
+  document.body.append(d);go("dash");setTimeout(()=>d.remove(),2200);
+}
+document.querySelectorAll("[data-go]").forEach(b=>b.addEventListener("click",e=>{e.preventDefault();go(b.dataset.go)}));
+document.querySelectorAll("[data-toggle]").forEach(b=>b.addEventListener("click",()=>{const i=document.getElementById(b.dataset.toggle);i.type=i.type==="password"?"text":"password";b.textContent=i.type==="password"?"👁️":"🙈"}));
+$("#f-login").addEventListener("submit",e=>{e.preventDefault();splash()});
+$("#f-reg").addEventListener("submit",e=>{e.preventDefault();go("login");$("#lmsg").innerHTML='<div class="alert ok">Account created. Please log in.</div>'});
+$("#f-2fa").addEventListener("submit",e=>{e.preventDefault();splash()});
+$("#f-setup").addEventListener("submit",e=>{e.preventDefault();go("dash")});
+$("#f-out").addEventListener("submit",e=>{e.preventDefault();go("login");$("#lmsg").innerHTML='<div class="alert ok">You have been logged out.</div>'});
+const now=new Date();$("#since").textContent=now.toISOString().slice(0,10);
+$("#since2").textContent=now.toLocaleString("en-GB",{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit"});
+(function(){const q=$("#qrf");let h="";const s=[7,3,9,5,1,8,2,6,4];for(let r=0;r<11;r++)for(let c=0;c<11;c++){const corner=(r<3&&c<3)||(r<3&&c>7)||(r>7&&c<3);const on=corner?!(r%2&&c%2):((r*7+c*13+s[(r+c)%9])%3!==0);h+='<i class="'+(on?'':'w')+'"></i>'}q.innerHTML=h})();
+</script></body></html>

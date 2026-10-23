@@ -1,0 +1,9 @@
+{% extends "auth.html" %}{% block title %}Two-factor{% endblock %}{% block form %}
+<h1>Two-factor check</h1><p class="mut">Enter the 6-digit code from your authenticator app.</p>
+{% include "_flashes.html" %}
+<form method="post"><input type="hidden" name="_csrf" value="{{ csrf_token() }}">
+ <label for="code">Authentication code</label>
+ <input id="code" class="otp" name="code" inputmode="numeric" pattern="[0-9 ]{6,7}" maxlength="7" autocomplete="one-time-code" required autofocus>
+ <button class="btn">Verify</button></form>
+<p class="foot"><a href="{{ url_for('login') }}">Back to login</a></p>
+{% endblock %}
