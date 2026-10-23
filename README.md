@@ -127,3 +127,17 @@ With a parameter the database treats input purely as data, so `admin' OR '1'='1'
 
 ## 🔭 Possible improvements
 IP-based rate limiting (Flask-Limiter), email verification, password reset, 2FA backup codes, encrypting stored TOTP secrets, audit logging.
+
+screenshots of web app
+<img width="1838" height="1021" alt="Screenshot 2026-10-23 170131" src="https://github.com/user-attachments/assets/b1b28324-075f-4fc2-926a-6d237b85e793" />
+
+
+<img width="1814" height="1027" alt="Screenshot 2026-10-23 170244" src="https://github.com/user-attachments/assets/0e1e0664-bc1f-400b-9fca-6e2e255fd50d" />
+
+
+<img width="1743" height="941" alt="Screenshot 2026-10-23 170308" src="https://github.com/user-attachments/assets/6916707e-3c5f-41df-86d2-c52db13943c6" />
+
+
+
+
+
